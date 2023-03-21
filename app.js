@@ -1,10 +1,11 @@
 // TEST
-let image = document.getElementById('image');
-let title = document.getElementById('title');
-let actorName = document.getElementById('actor');
+// Autre test
+//let image = document.getElementById('image');
+//let title = document.getElementById('title');
+//let actorName = document.getElementById('actor');
 // Scraping => thème  
 // Exemple data : title, year,
-let input = document.querySelector('input[type="search"]');
+//let input = document.querySelector('input[type="search"]');
 
 const requestApi = async () => {
   let nameToSearch = "abcdefghijklmnopqrstuvwxyz";
