@@ -4,14 +4,38 @@
 // Scraping => thème  
 // title, year,  
 
-const requestApi = async () => {
-  let requestString = `https://imdb-api.com/en/API/SearchMovie/k_5lsv0goy`;
-  let data = await fetch(requestString);
-  console.log(data);
+function getValue1() {
+  // On sélectionne l'élément input et on récupère sa valeur
+  let input = document.getElementById("in1").value
+  let recherche = "https://imdb-api.com/en/API/SearchName/k_5lsv0goy/" + input
 
-  let response = await data.json();
-  console.log(data.json());
-  console.log(response);
-
+  // On affiche la valeur
+  alert(recherche)
+  return recherche
 }
-requestApi();
+const userRequest1 = getValue1()
+fetch(userRequest1)
+  .then(response => {
+    return response.json()
+  })
+  .then(datas => {
+    console.log(datas)
+  })
+
+function getValue2() {
+  // On sélectionne l'élément input et on récupère sa valeur
+  let input = document.getElementById("in2").value
+  let recherche = "https://imdb-api.com/en/API/SearchName/k_5lsv0goy/" + input
+
+  // On affiche la valeur
+  alert(recherche)
+  return recherche
+}
+const userRequest2 = getValue2()
+fetch(userRequest2)
+  .then(response => {
+    return response.json()
+  })
+  .then(datas => {
+    console.log(datas)
+  })
