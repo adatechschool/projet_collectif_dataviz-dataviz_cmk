@@ -7,27 +7,36 @@
   <link rel="stylesheet" href="./style.css">
   <title>Document</title>
 </head>
-
 <body>
   <h1>Projet DataViz</h1>
   <h2>Bienvenue sur votre site de recherche cinématographique.</h2>
   <div>
     <p id="acteur1"> Indiquez le nom d'un acteur ci-dessous</p>
     <input type="text" placeholder="Entrez un nom" id="in1">
-    <button type="button">Valider</button>
+    <button type="button" onclick="setResults1()">Valider</button>
   </div>
   <div>
     <p id="acteur2">Indiquez le nom d'un autre acteur ci-dessous</p>
     <input type="text" placeholder="Entrez un nom" id="in2">
-    <button type="button">Valider</button>
+    <button type="button"  onclick="setResults1()">Valider</button>
   </div>
   <div id="container">
-    <h3 id="name"></h3>
-    <img id="image" src="" alt="">
-    <p id="movies"></p>
+    <div>
+      <h3 id="nameActorOne"></h3>
+      <img id="imageActorOne" src="" alt="">
+      <p id="moviesActorOne"></p>
+    </div>
+    <div>
+      <h3 id="nameActorTwo"></h3>
+      <img id="imageActorTwo" src="" alt="">
+      <p id="moviesActorTwo"></p>
+    </div>
+  </div>
+  <div>
+    <img id="poster" src="" alt=""/>
   </div>
   <div id="videoTrailer"></div>
- 
+  <video id="video" src="" controls></video>
   <script src="./app2.js"></script>
 </body>
 </html>
