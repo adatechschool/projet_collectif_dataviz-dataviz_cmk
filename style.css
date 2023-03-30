@@ -120,3 +120,35 @@ input {
 input::placeholder {
   font-style: italic;
 }
+
+.card {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-image {
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  margin: 10px 0;
+}
+
+#videoTrailer {
+  margin: 50px 0;
+}
+
+#poster {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.titlePoster {
+  margin-top: 15px;
+  color: #8a96e2;
+  text-align: center;
+}

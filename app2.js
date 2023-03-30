@@ -1,4 +1,4 @@
-// variables
+// >>> Varaibles <<<
 let view = document.getElementById("container");
 let imageOne = document.getElementById("imageActorOne");
 let imageTwo = document.getElementById("imageActorTwo");
@@ -8,28 +8,22 @@ let buttonTwo = document.getElementById("in2");
 let moviesList = document.getElementById("movies");
 let linkYoutube = document.getElementById("videoTrailer");
 
-
-//fonction recherche liste films par acteur
+// >>> Recherche des films par acteur <<<
 const setResults1 = async (findActor) => {
   let input = document.getElementById(findActor).value;
-  let search = "https://imdb-api.com/en/API/SearchName/k_djtmiu0u/" + input;
+  let search = "https://imdb-api.com/en/API/SearchName/k_r3v4qq3t/" + input;
   let searchActor = await fetch(search);
   let responseActor = await searchActor.json();
   let idActor = responseActor.results[0].id;
-  let listeFilms = `https://imdb-api.com/en/API/Name/k_djtmiu0u/${idActor}`;
+  let listeFilms = `https://imdb-api.com/en/API/Name/k_r3v4qq3t/${idActor}`;
   let requestAsk = await fetch(listeFilms);
   let responseRequest = await requestAsk.json();
   let listMovies = responseRequest.castMovies;
-//   nameActorOne.textContent = responseActor.results[0].id;
-//   imageOne.src = responseActor.results[0].image;
-//   nameActorTwo.textContent = responseActor.results[0].id;
-//   imageTwo.src = responseActor.results[0].image;
-// moviesList.textContent = responseActor.castMovies;
   return listMovies;
 };
-setResults1("in1");
+// setResults1();
 
-//fonction recherche film commun
+// >>> Recherche film commun <<<
 const searchCorrespondence = async () => {
   let correspondence = [];
   let actorMovies1 = await setResults1("in1");
@@ -49,41 +43,53 @@ const searchCorrespondence = async () => {
 };
 // searchCorrespondence();
 
+// >>> Recherche d'Affiche <<<
+const searchPoster = async () => {
+  let myFilm = await searchCorrespondence();
+  let allPosters = [];
+  for (let i = 0; i < myFilm.length; i++) {
+    let poster =
+      "https://api.themoviedb.org/3/find/" +
+      myFilm[i] +
+      "?api_key=40220d680d0a0e7cf4085fd580bec82f&language=en-US&external_source=imdb_id";
+    let searchPoster = await fetch(poster);
+    let responsePoster = await searchPoster.json();
+    if (responsePoster.movie_results[0]){
+    let resultPoster =
+      "https://image.tmdb.org/t/p/original/" +
+      responsePoster.movie_results[0].poster_path;
+    allPosters.push(resultPoster);
+  }
+  }
+  console.log(allPosters)
+  for (let i = 0; i < allPosters.length; i++) {
+    const card = `
+          <div class="card">
+            <div class="body"> 
+            </div>
+            <div class="card-image" 
+                style=" width:300px; height:450px; 
+              background-image: url(${allPosters[i]});
+                background-size: cover"></div>
+                <div class="card-body">`;
+    document.getElementById("poster").innerHTML += card;
+  }
+};
 
 
-//fonction recherche du trailer
+// >>> Affichage Trailer <<<
 const searchTrailer = async () => {
-  let videoEmbed = document.getElementById("video");
   let idFilm = await searchCorrespondence();
-  let linkTrailer = "https://imdb-api.com/en/API/Trailer/k_djtmiu0u/" + idFilm[0];
+  let linkTrailer =
+    "https://imdb-api.com/en/API/Trailer/k_r3v4qq3t/" + idFilm[Math.floor(Math.random() * idFilm.length)];
   let searchTrailer = await fetch(linkTrailer);
   let responseTrailer = await searchTrailer.json();
   let embedVideo = responseTrailer.linkEmbed;
-  //const linkToVideo = embedVideo;
-  //document.getElementById("videoTrailer").innerText += linkToVideo;
-  const trailer = document.createElement('trailer');
-  trailer.src = responseTrailer.linkEmbed;
-  const box = document.getElementById('video');
-  box.append(trailer);
-  return responseTrailer;
+  const trailer = `<iframe width="860" height="415" src="${embedVideo}" frameborder="0" allowfullscreen></iframe>
+  </iframe>`;
+  document.getElementById("videoTrailer").innerHTML += trailer;
 };
 // searchTrailer();
-
-//https://image.tmdb.org/t/p/original//r6Sr0uSiVbQOvqoebZoy5rzlPvJ.jpg
-
-const searchPoster = async () =>{
-  let myFilm = await searchCorrespondence();
-  let poster = "https://api.themoviedb.org/3/find/" + myFilm +  "?api_key=584c23b365d64166b0051e1dfe1ad3fb&language=en-US&external_source=imdb_id"
-  let searchPoster = await fetch(poster);
-  let responsePoster = await searchPoster.json();
-  let resultPoster = "https://image.tmdb.org/t/p/original/" + responsePoster.movie_results[0].poster_path
-  console.log(resultPoster)
-  const myPoster = document.createElement('myPoster');
-  myPoster.src = resultPoster;
-  const box = document.getElementById('poster');
-  box.append(myPoster);
-}
-searchPoster()
 
 const titlesbyActor = async () => {
   const whichActor = await setResults1("in1");
@@ -91,10 +97,10 @@ const titlesbyActor = async () => {
   for (let i = 0; i < whichActor.length; i++) {
     allTitles.push(whichActor[i].id);
   }
-  return allTitles
+  return allTitles;
 };
 
-//fonction recherche genre
+// >>> Recherche Genre <<<
 // const searchGenre = async () => {
 //   let genreCorrespondence = []
 //   let idImdb = await titlesbyActor();
@@ -102,13 +108,12 @@ const titlesbyActor = async () => {
 //     let linkGenre = "https://api.themoviedb.org/3/find/" + idImdb[i] +  "?api_key=584c23b365d64166b0051e1dfe1ad3fb&language=en-US&external_source=imdb_id";
 //     let searchGenre = await fetch(linkGenre);
 //     let responseGenre = await searchGenre.json();
-//     let resultGenres = responseGenre.movie_results[0].genre_ids;
+//      let resultGenres = responseGenre.movie_results[0].genre_ids;
 //     if (resultGenres == leboutondeKhadija){
 //       genreCorrespondence.push(resultGenres[i]);
 //     }
 //   }
-// } 
+// }
 //Tableau avec numéros des genres
 //console.log(responseGenre.movie_results[0].genre_ids)
 // searchGenre();
-
